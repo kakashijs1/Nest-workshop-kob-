@@ -1,12 +1,12 @@
 import { Body, Controller, Delete, Get, Param, Post,Put   } from '@nestjs/common';
-// import { AppService } from './app.service';
+//import { AppService } from './app.service';
 
 @Controller("api/app")
 export class AppController {
 
   private items = [
     {id: 1, name: ' Item 1'},
-    {id: 2, name: ' Iten 2'},
+    {id: 2, name: ' Item 2'},
     {id: 3, name: ' Item 3'}
   ]
   
@@ -46,17 +46,20 @@ export class AppController {
     return 'item not found ';
   }
 
-
-  @Delete('id')
-  deleteItem(@Param('id') id:string ){
-    const index = this.items.findIndex( i => i.id === idForDelete);
+  @Delete(':id')
+  deleteItem(@Param('id') id: string) {
     const idForDelete = parseInt(id);
+    const index = this.items.findIndex(i => i.id === idForDelete);
+    console.log('ID to delete:', idForDelete); // เพิ่มการพิมพ์ log เพื่อตรวจสอบ
+    console.log('Items:', this.items); // เพิ่มการพิมพ์ log เพื่อตรวจสอบ
 
-    if (index !== -1 ) {
+    if (index !== -1) {
       const item = this.items.splice(index, 1);
       return item;
     }
 
-    return 'item not found '
+    return 'item not found'
   }
+
+
 } 
