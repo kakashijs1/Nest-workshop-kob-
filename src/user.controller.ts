@@ -4,10 +4,9 @@ import { AuthService } from "./auth.service";
 
 const prisma = new PrismaClient();
 
-//@Injectable()
 @Controller("/api/user")
 export class UserController{
-    //constructor(private authService: AuthService) {}
+    constructor(private authService: AuthService) {}
 
     @Get("list")
     async list(){
@@ -48,7 +47,7 @@ export class UserController{
     }
 
     @Post("login")
-    async login(@Body() user: {usr: string; pwd: string}) {
+    async login(@Body() user: {usr: string, pwd: string}) {
         try{
             const userData = await prisma.user.findFirst({
                 where: {
