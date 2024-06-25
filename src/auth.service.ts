@@ -3,16 +3,16 @@ import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
- constructor(private readonly jwtService: JwtService) {}
+  constructor(private readonly jwtService: JwtService) {}
 
- async validateUserById(userId: string) {
-   return null;
- }
+  async validateUserById(userId: string) {
+    return null;
+  }
 
- async login(user: any) {
-   const payload = { sub: user.id, username: user.username };
-   return {
-     access_token: this.jwtService.sign(payload),
-   };
- }
+  async login(user: any) {
+    const payload = { sub: user.id, username: user.user };
+    return {
+      access_token: await this.jwtService.signAsync(payload),
+    };
+  }
 }
