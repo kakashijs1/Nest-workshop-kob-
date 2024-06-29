@@ -36,4 +36,6 @@ model Lotto {
   number String
   roundNumber Int
   bookNumber Int
+  cost Int
+  sale Int
 }
