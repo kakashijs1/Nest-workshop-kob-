@@ -12,6 +12,7 @@ import {
 import { Lotto, PrismaClient } from '@prisma/client';
 import { AuthService } from './auth.service';
 import { JwtService } from '@nestjs/jwt';
+import { endWith } from 'rxjs';
 
 const prisma = new PrismaClient();
 
@@ -47,6 +48,31 @@ export class LottoController {
       result: await prisma.lotto.update({
         data: lotto,
         where: { id: parseInt(id) },
+      }),
+    };
+  }
+
+  @Post('search')
+  async search(
+    @Body('number') input: string,
+    @Body('position') position: string,
+  ) {
+    let condition = {};
+
+    if (position === 'start') {
+      condition = {
+        startsWith: input,
+      };
+    } else {
+      condition = {
+        endWith: input,
+      };
+    }
+    return {
+      results: await prisma.lotto.findMany({
+        where: {
+          number: condition,
+        },
       }),
     };
   }
