@@ -65,7 +65,7 @@ export class LottoController {
       };
     } else {
       condition = {
-        endWith: input,
+        endsWith: input,
       };
     }
     return {
